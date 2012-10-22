@@ -58,12 +58,6 @@ ERL_NIF_TERM poly1305_aes_clamp(ErlNifEnv* env, int argc, const ERL_NIF_TERM arg
     return enif_make_tuple2(env, enif_make_atom(env, "ok"), enif_make_binary(env, &kr));
 }
 
-/*
-extern void poly1305aes_53_authenticate(unsigned char out[16],
-  const unsigned char kr[32],
-  const unsigned char n[16],
-  const unsigned char m[],unsigned int l);
-*/
 ERL_NIF_TERM poly1305_aes_authenticate(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
     ErlNifBinary out, kr, n, m;
@@ -87,12 +81,6 @@ ERL_NIF_TERM poly1305_aes_authenticate(ErlNifEnv* env, int argc, const ERL_NIF_T
     return enif_make_tuple2(env, enif_make_atom(env, "ok"), enif_make_binary(env, &out));
 }
 
-/*
-extern int poly1305aes_53_verify(const unsigned char a[16],
-  const unsigned char kr[32],
-  const unsigned char n[16],
-  const unsigned char m[],unsigned int l);
-*/
 ERL_NIF_TERM poly1305_aes_verify(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
     ErlNifBinary a, kr, n, m;
