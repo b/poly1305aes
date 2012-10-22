@@ -25,7 +25,7 @@ ERL_NIF_INIT(poly1305aes, nif_funcs, load, NULL, NULL, NULL);
 
 int load(ErlNifEnv* env, void ** priv_data, ERL_NIF_TERM load_info)
 {
-	return 0;
+    return 0;
 }
 
 int reload(ErlNifEnv* env, void** priv, ERL_NIF_TERM load_info)
@@ -48,13 +48,13 @@ ERL_NIF_TERM poly1305_aes_clamp(ErlNifEnv* env, int argc, const ERL_NIF_TERM arg
     ErlNifBinary kr;
     enif_inspect_binary(env, argv[0], &kr);
 
-	if (kr.size != 32)
-	{
+    if (kr.size != 32)
+    {
         return enif_make_tuple2(env, enif_make_atom(env, "error"), enif_make_atom(env, "invalid_key"));
-	}
+    }
 
-	poly1305aes_clamp(kr.data);
-	
+    poly1305aes_clamp(kr.data);
+    
     return enif_make_tuple2(env, enif_make_atom(env, "ok"), enif_make_binary(env, &kr));
 }
 
@@ -66,25 +66,25 @@ extern void poly1305aes_53_authenticate(unsigned char out[16],
 */
 ERL_NIF_TERM poly1305_aes_authenticate(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
-	ErlNifBinary out, kr, n, m;
-	
-	enif_inspect_binary(env, argv[0], &kr);
+    ErlNifBinary out, kr, n, m;
+    
+    enif_inspect_binary(env, argv[0], &kr);
     enif_inspect_binary(env, argv[1], &n);
     enif_inspect_binary(env, argv[2], &m);
     
-	if (m.size > AN_GIGABYTE)
-	{
+    if (m.size > AN_GIGABYTE)
+    {
         return enif_make_tuple2(env, enif_make_atom(env, "error"), enif_make_atom(env, "too_much_data"));
-	}
+    }
 
-	if (!enif_alloc_binary(16, &out))
-	{
+    if (!enif_alloc_binary(16, &out))
+    {
         return enif_make_tuple2(env, enif_make_atom(env, "error"), enif_make_atom(env, "authenticator_alloc_failed"));
-	}
+    }
 
-	poly1305aes_authenticate(out.data, kr.data, n.data, m.data, m.size);
-	
-	return enif_make_tuple2(env, enif_make_atom(env, "ok"), enif_make_binary(env, &out));
+    poly1305aes_authenticate(out.data, kr.data, n.data, m.data, m.size);
+    
+    return enif_make_tuple2(env, enif_make_atom(env, "ok"), enif_make_binary(env, &out));
 }
 
 /*
@@ -95,22 +95,22 @@ extern int poly1305aes_53_verify(const unsigned char a[16],
 */
 ERL_NIF_TERM poly1305_aes_verify(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[])
 {
-	ErlNifBinary a, kr, n, m;
-	
+    ErlNifBinary a, kr, n, m;
+    
     enif_inspect_binary(env, argv[0], &a);
     enif_inspect_binary(env, argv[1], &kr);
     enif_inspect_binary(env, argv[2], &n);
     enif_inspect_binary(env, argv[3], &m);
 
-	if (m.size > AN_GIGABYTE)
-	{
+    if (m.size > AN_GIGABYTE)
+    {
         return enif_make_tuple2(env, enif_make_atom(env, "error"), enif_make_atom(env, "too_much_data"));
-	}
+    }
 
-	if (poly1305aes_verify(a.data, kr.data, n.data, m.data, m.size) == 0)
-	{
-		return enif_make_atom(env, "false");
-	} else {
-		return enif_make_atom(env, "true");
-	}
+    if (poly1305aes_verify(a.data, kr.data, n.data, m.data, m.size) == 0)
+    {
+        return enif_make_atom(env, "false");
+    } else {
+        return enif_make_atom(env, "true");
+    }
 }

@@ -2,7 +2,7 @@
 -author('b@b3k.us').
 
 -export([init/0,
-		 make_key/0,
+         make_key/0,
          make_nonce/0,
          clamp/1,
          authenticate/3,
@@ -27,20 +27,20 @@ init() ->
 
 -spec make_key() -> binary().
 make_key() ->
-	crypto:strong_rand_bytes(32).
+    crypto:strong_rand_bytes(32).
 
 -spec make_nonce() -> binary().
 make_nonce() ->
-	crypto:strong_rand_bytes(16).
+    crypto:strong_rand_bytes(16).
 
 -spec clamp(binary()) -> {ok, binary()} | {error, atom()}.
 clamp(_Kr) ->
-	"NIF library not loaded".
+    "NIF library not loaded".
 
 -spec authenticate(binary(), binary(), binary()) -> {ok, binary()} | {error, atom()}.
 authenticate(_Kr, _N, _M) ->
-	"NIF library not loaded".
+    "NIF library not loaded".
 
 -spec verify(binary(), binary(), binary(), binary()) -> boolean().
 verify(_A, _Kr, _N, _M) ->
-	"NIF library not loaded".
+    "NIF library not loaded".
