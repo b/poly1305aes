@@ -1,0 +1,15 @@
+{application, poly1305aes,
+ [
+  {description, "Poly1305-AES NIF MAC function NIF"},
+  {vsn, "1.0.0"},
+  {modules, [
+             poly1305aes,
+             hex
+            ]},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {env, []}
+ ]}.
