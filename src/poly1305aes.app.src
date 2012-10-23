@@ -3,6 +3,7 @@
   {description, "Poly1305-AES NIF MAC function NIF"},
   {vsn, "1.0.0"},
   {modules, [
+             hex,
              poly1305aes
             ]},
   {registered, []},

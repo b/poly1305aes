@@ -2,17 +2,6 @@
 
 -include_lib("eunit/include/eunit.hrl").
 
-hexstr_to_bin(S) ->
-  hexstr_to_bin(S, []).
-hexstr_to_bin([], Acc) ->
-  list_to_binary(lists:reverse(Acc));
-hexstr_to_bin([X,Y|T], Acc) ->
-  {ok, [V], []} = io_lib:fread("~16u", [X,Y]),
-  hexstr_to_bin(T, [V | Acc]);
-hexstr_to_bin([X|T], Acc) ->
-  {ok, [V], []} = io_lib:fread("~16u", lists:flatten([X,"0"])),
-  hexstr_to_bin(T, [V | Acc]).
-
 parse_lines(Lines) ->
 	lists:map(
 		fun(L) ->
@@ -20,7 +9,7 @@ parse_lines(Lines) ->
 				[Kr, N, M, Len, A] -> [Kr, N, M, Len, A];
 				[Kr, N, Len, A] -> [Kr, N, "", Len, A]
 			end,
-			lists:map(fun hexstr_to_bin/1, Line)
+			lists:map(fun hex:hexstr_to_bin/1, Line)
 		end,
 		Lines).
 
@@ -44,3 +33,5 @@ test_data(Fun) ->
 
 authenticate_test_() -> {timeout, 60, fun() -> test_data(fun authenticate/1) end}.
 verify_test_() -> {timeout, 60, fun() -> test_data(fun verify/1) end}.
+
+% add tests for things that should fail
